@@ -1,5 +1,0 @@
-{
-    "port": 5000,
-    "jwtSecret": "SuperStrong123SecretKey",
-    "mongoUri": "mongodb+srv://Maksim:OJVMCkAaHG6KBhIj@firstcluster.v7p7u.mongodb.net/mern-app?retryWrites=true&w=majority"
-}
