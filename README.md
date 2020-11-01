@@ -12,6 +12,7 @@
 
 ## Client dependencies
 
-rm -rf .git - Before continue to work with client you need to delete .git folder which installing automaticly with create-react-app.
+* rm .git (Before continue to work with client you need to delete .git folder which installing automaticly with create-react-app)
 
 * npm i materialize-css@next
+* npm i react-router-dom
