@@ -1,7 +1,7 @@
 import React from "react";
 import {Switch, Route, Redirect} from "react-router-dom";
 
-import {AuthPage} from "./components/AuthPage";
+import {AuthPage} from "./components/AuthPage/AuthPage";
 import {LinksPage} from "./components/LinksPage";
 import {CreatePage} from "./components/CreatePage";
 import {DetailPage} from "./components/DetailPage";
