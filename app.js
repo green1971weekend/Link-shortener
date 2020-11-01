@@ -1,10 +1,14 @@
 const express = require("express");
-const config = require("config");   //Keeps all configuration settings in config folder
-const mongoose = require("mongoose");
+const config = require("config");   //Contains all configuration settings in config folder.
+const mongoose = require("mongoose"); //Contains functionality for working with mongoDB.
 
+//The result of express configuration. Variable app contains server functionality for starting, listening etc.
 const app = express();
 
-//  In the production and development modes we'll have the diffrent port values.
+//Registration of diffrent routes with use() for processing requests from front-end.
+app.use("/api/auth", require("./routes/auth.routes"));
+
+//In the production and development modes we'll have the diffrent port values.
 const PORT = config.get("port") || 5000;
 
 
@@ -25,5 +29,4 @@ async function start() {
         process.exit(1); // Terminate the process if something went wrong.
     }
 }
-
 start();
