@@ -1,0 +1,29 @@
+{
+  "name": "link-shortener",
+  "version": "1.0.0",
+  "description": "MERN stack",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/green1971weekend/Link-shortener-.git"
+  },
+  "author": "https://github.com/green1971weekend",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/green1971weekend/Link-shortener-/issues"
+  },
+  "homepage": "https://github.com/green1971weekend/Link-shortener-#readme",
+  "dependencies": {
+    "config": "^3.3.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.11"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  }
+}
