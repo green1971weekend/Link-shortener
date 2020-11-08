@@ -10,9 +10,9 @@ const {check, validationResult} = require("express-validator");
 
 // Library for generating json web token.
 const jwt = require("jsonwebtoken");
-
 //---------------------------------------------------------------------------------------//
 
+// /api/auth/register
 // Defines a new post endpoint for register users.
 router.post("/register",
  [
@@ -30,7 +30,7 @@ router.post("/register",
             })
         }  
 
-        const {email, password} = req.body; // The data dispatched from front-end.
+        const { email, password} = req.body; // !!! The data dispatched from front-end. For the correct parsing body-parser package is needed and configured in app.js.
 
         const candidate = await User.findOne({ email }); //Looking for coincidences between all existing users in mongoDB.
         if(candidate) {
@@ -45,6 +45,7 @@ router.post("/register",
         res.status(201).json({message: "New user has been created"});
 
     } catch (e) {
+        console.log(e);
         res.status(500).json({message: "The server error occured by registering a new user."})
     }
 });

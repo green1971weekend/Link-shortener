@@ -5,6 +5,21 @@ const mongoose = require("mongoose"); //Contains functionality for working with 
 //The result of express configuration. Variable app contains server functionality for starting, listening etc.
 const app = express();
 
+var cors = require('cors');
+
+// Body parser for the correct parsing of input data to server from front-end.
+var bodyParser = require('body-parser');
+
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "PUT"]
+}));
+
+// Parse various different custom JSON types as JSON
+// app.use(bodyParser.json({ type: 'application/*+json' }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 //Registration of diffrent routes with use() for processing requests from front-end.
 app.use("/api/auth", require("./routes/auth.routes"));
 

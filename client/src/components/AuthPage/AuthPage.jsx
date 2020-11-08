@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import {useHttp} from "../../hooks/http.hook.js";
 import "./AuthPage.css";
 
 export const AuthPage = () => {
+
+    const {loading, error, request} = useHttp();
 
     const [form, setForm] = useState({
         email: "",
@@ -9,7 +12,15 @@ export const AuthPage = () => {
     });
 
     const changeHandler = (event) => {
-        setForm({...form, [event.target.name]: event.target.value});
+        setForm({...form, [event.target.name]: event.target.value}); //[event.target.name] - dynamic key. The necessary value will be selected depending on the changed input value.
+    }
+
+    const registerHandler = async () => {
+        try {
+            console.log("click");
+            const data = await request("/api/auth/register", "POST", {...form} ); // *Because of ports value diffrence between back-end and front-end parts we need to add in client package.json proxy part which will tell front-end make requests by pointed port in development mode.*
+            console.log(data);
+        } catch (e) {  }    //catch here remains empty because it already processed in http hook.
     }
 
     return(
@@ -41,8 +52,8 @@ export const AuthPage = () => {
                         </div>
                     </div>
                     <div className="card-action">
-                        <button className="btn yellow darken-4">Sign In</button>
-                        <button className="btn grey lighten-1 black-text">Sign Up</button>
+                        <button className="btn yellow darken-4" disabled={loading}>Sign In</button>
+                        <button className="btn grey lighten-1 black-text" onClick={registerHandler} disabled={loading}>Sign Up</button>
                     </div>
                 </div>
             </div>
