@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext.js";
 import {useHttp} from "../../hooks/http.hook.js";
 import { useMessage } from "../../hooks/message.hook.js";
 
@@ -6,6 +7,7 @@ import "./AuthPage.css";
 
 export const AuthPage = () => {
 
+    const auth = useContext(AuthContext); // Now this variable contains all data which transfered by AuthContext.Provider
     const message = useMessage();
     const {loading, error, request, clearError} = useHttp();
 
@@ -34,6 +36,7 @@ export const AuthPage = () => {
         try {
             const data = await request("/api/auth/login", "POST", {...form} ); // *Because of ports value diffrence between back-end and front-end parts we need to add in client package.json proxy part which will tell front-end make requests by pointed port in development mode.*
             message(data.message);
+            auth.login(data.token, data.userId);
         } catch (e) {  }    //catch here remains empty because it already processed in http hook.
     }
 
