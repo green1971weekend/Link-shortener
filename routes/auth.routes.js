@@ -6,7 +6,7 @@ const User = require("../models/User.js");
 const bcrypt = require("bcryptjs"); 
 
 // Library for validation of the input data on the server side.
-const {check, validationResult} = require("express-validator");
+const {body, validationResult} = require("express-validator");
 
 // Library for generating json web token.
 const jwt = require("jsonwebtoken");
@@ -16,21 +16,22 @@ const jwt = require("jsonwebtoken");
 // Defines a new post endpoint for register users.
 router.post("/register",
  [
-    //Input data validation checking
-    check("email", "Incorrect email").isEmail(),
-    check("password", "Minimal length of the password value must be 8 symbols").isLength({min: 8})
+    //Incoming data validation
+    body("email").isEmail(),
+    body("password").isLength({min: 8})
  ],
  async (req, res) => {
     try {
-        const errors = validationResult(req); // validationResult validates input data.
-        if(!errors.isEmpty) {
+        const errors = validationResult(req); // validationResult validates incoming data.
+
+        if(errors) {
             return res.status(400).json({
                 errors: errors.array(),
                 message: "Incorrect input data for registration."
             })
         }  
 
-        const { email, password} = req.body; // !!! The data dispatched from front-end. For the correct parsing body-parser package is needed and configured in app.js.
+        const { email, password } = req.body; // !!! The data dispatched from front-end. For the correct parsing body-parser package is needed and configured in app.js.
 
         const candidate = await User.findOne({ email }); //Looking for coincidences between all existing users in mongoDB.
         if(candidate) {
@@ -53,8 +54,8 @@ router.post("/register",
 // Defines a new post endpoint for login users.
 router.post("/login",
 [
-    check("email", "Input correct email").normalizeEmail().isEmail(),
-    check("password", "Input the password").exists()
+    body("email").normalizeEmail().isEmail(),
+    body("password").exists()
 ],
  async (req, res) => {
     try {

@@ -8,13 +8,13 @@ export const useHttp = () => {
 
 
     //useCallback takes 2 parameters: 1-st - callback function; 2-nd - set of dependencies for callback.
-    const request = useCallback( async (url, method = "POST", body = null, headers = { "Content-Type": "application/json" }) => {    // Using callback for preventing entering in recursion by react
+    const request = useCallback( async (url, method = "GET", body = null, headers = { "Content-Type": "application/json" }) => {    // Using callback for preventing entering in recursion by react
         setLoading(true);
         console.log(body);
 
         try {
             const response = await fetch(url, {
-                method: "POST",
+                method: method,
                 headers,
                 body: JSON.stringify(body)
             });
@@ -35,7 +35,7 @@ export const useHttp = () => {
     }, []);
 
 
-    const clearError = () => setError(null);
+    const clearError = useCallback(() => setError(null), []); // !!! useCallBack is necessary for correct error message output.
 
     return { loading, error, request, clearError }
 }
