@@ -1,6 +1,7 @@
 const {Router} = require("express");
 const router = Router();
 const User = require("../models/User.js");
+const config = require("config"); 
 
 // Library for hashing passwords.
 const bcrypt = require("bcryptjs"); 
@@ -23,8 +24,8 @@ router.post("/register",
  async (req, res) => {
     try {
         const errors = validationResult(req); // validationResult validates incoming data.
-
-        if(errors) {
+        console.log(errors.isEmpty());
+        if(!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array(),
                 message: "Incorrect input data for registration."
@@ -60,7 +61,7 @@ router.post("/login",
  async (req, res) => {
     try {
         const errors = validationResult(req);
-        if(!errors.isEmpty) {
+        if(!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array(),
                 message: "Incorrect input during entering the system."
@@ -68,7 +69,7 @@ router.post("/login",
         }
         
         const {email, password} = req.body;
-        const user = await user.findOne({email});
+        const user = await User.findOne({email});
 
         if(!user) {
             return res.status(400).json({message: "Given email or password is incorrect, try again."});
@@ -89,7 +90,7 @@ router.post("/login",
         res.json({token, userId: user.id});
 
     } catch (e) {
-        res.status(500).json({message: "The server error occured by registering a new user."})
+        res.status(500).json({message: "The server error occured by login process."})
     }
 });
 
