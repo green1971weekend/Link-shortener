@@ -8,6 +8,7 @@
 * npm i bcryptjs
 * npm i express-validator
 * npm i jsonwebtoken
+* npm i shortid
 
 
 ## Client dependencies
