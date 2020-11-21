@@ -10,13 +10,16 @@ export const useHttp = () => {
     //useCallback takes 2 parameters: 1-st - callback function; 2-nd - set of dependencies for callback.
     const request = useCallback( async (url, method = "GET", body = null, headers = { "Content-Type": "application/json" }) => {    // Using callback for preventing entering in recursion by react
         setLoading(true);
-        console.log(body);
 
         try {
+            if (body) {
+                body = JSON.stringify(body)
+            }
+
             const response = await fetch(url, {
                 method: method,
-                headers,
-                body: JSON.stringify(body)
+                headers: headers,
+                body: body
             });
 
             const data = await response.json();

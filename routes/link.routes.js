@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router(); 
-const Link = require("./models/Link");
+const Link = require("../models/Link.js");
 const auth = require("../middleware/auth.middleware");
 const config = require("config");
 const shortid = require("shortid");
@@ -11,7 +11,7 @@ router.post("/generate", auth, async (req, res) => {
         const {from} = req.body;
 
         const code = shortid.generate();
-        const existing =  await Link.findOne({ from });
+        const existing =  await Link.findOne({from});
         if(existing) {
             return res.json({link: existing});
         }

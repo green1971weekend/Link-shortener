@@ -7,7 +7,7 @@ const schema = new Schema({
     code: {type: String, required: true, unique: true},
     date: {type: Date, default: Date.now},
     clicks: {type: Number, default: 0},
-    owner: {type: Types.ObjectId, ref: "User"}
+    owner: [{type: Types.ObjectId, ref: "User"}]
 });
 
 // Export of link model functionality with the defined scheme.

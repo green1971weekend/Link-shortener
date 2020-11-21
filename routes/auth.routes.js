@@ -24,7 +24,6 @@ router.post("/register",
  async (req, res) => {
     try {
         const errors = validationResult(req); // validationResult validates incoming data.
-        console.log(errors.isEmpty());
         if(!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array(),
@@ -79,7 +78,6 @@ router.post("/login",
         if(!isMatched) {
             return res.status(400).json({message: "Given email or password is incorrect, try again."});
         }
-
         //If input data is correct generating a new jwt for user.
         const token = jwt.sign(
             { userId: user.id },

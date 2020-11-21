@@ -12,21 +12,25 @@ var bodyParser = require('body-parser');
 
 app.use(cors({
     origin: "*",
+    credentials: true,
+    optionsSuccessStatus: 200,
     methods: ["GET", "POST", "DELETE", "PUT"]
 }));
 
 // Parse various different custom JSON types as JSON
 // app.use(bodyParser.json({ type: 'application/*+json' }));
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//Another method 
+// app.use(express.json({extended: true}));
+
 //Registration of diffrent routes with use() for processing requests from front-end.
-app.use("/api/auth", require("./routes/auth.routes"));
-app.use("api/link", require("./routes/link.routes"))
+app.use("/api/auth", require("./routes/auth.routes.js"));
+app.use("/api/link", require("./routes/link.routes"))
 
 //In the production and development modes we'll have the diffrent port values.
 const PORT = config.get("port") || 5000;
-
 
 async function start() {
     try {
