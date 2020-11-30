@@ -27,7 +27,8 @@ app.use(bodyParser.json());
 
 //Registration of diffrent routes with use() for processing requests from front-end.
 app.use("/api/auth", require("./routes/auth.routes.js"));
-app.use("/api/link", require("./routes/link.routes"))
+app.use("/api/link", require("./routes/link.routes.js"));
+app.use("/t", require("./routes/redirect.routes.js"))
 
 //In the production and development modes we'll have the diffrent port values.
 const PORT = config.get("port") || 5000;
