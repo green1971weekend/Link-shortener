@@ -1,8 +1,12 @@
 # Link Shortener
 
+![CI](https://github.com/green1971weekend/Link-shortener/workflows/CI/badge.svg?branch=main)
+
 Full-stack application based on MongoDB, Express, ReactJS, NodeJS technologies. 
 
 The main idea is to convert giving links by the user and provide a short version followed by the original link.
+
+* Comprehensive description on source code included.
 
 # Getting Started
 
