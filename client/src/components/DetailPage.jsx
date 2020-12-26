@@ -10,6 +10,7 @@ export const DetailPage = () => {
     const {token} = useContext(AuthContext);
     const {request, loading} = useHttp();
     const [link, setLink] = useState(null);
+    //useParams().id returns id which taken from defined route /detail/:id
     const linkId = useParams().id;
 
     const getLink = useCallback(async () => {

@@ -33,12 +33,13 @@ export const useHttp = () => {
         } catch (e) {
             setLoading(false);
             setError(e.message);
-            throw e; // Throwing again the error for processing it in components.  
+            // Throwing again the error for processing it in components.  
+            throw e;
         }
     }, []);
 
-
-    const clearError = useCallback(() => setError(null), []); // !!! useCallBack is necessary for correct error message output.
+    // !!! useCallBack is necessary for correct error message output.
+    const clearError = useCallback(() => setError(null), []);
 
     return { loading, error, request, clearError }
 }

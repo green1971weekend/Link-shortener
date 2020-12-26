@@ -3,6 +3,7 @@ const Link = require("../models/Link.js")
 
 const router = Router();
 
+// Allows to follow the shorten link by redirecting request to origin link.
 router.get("/:code", async (req, res) => {
     try {
         const link = await Link.findOne({code: req.params.code});
@@ -20,4 +21,5 @@ router.get("/:code", async (req, res) => {
     }
 })
 
+// Export the defined router from the current js module.
 module.exports = router;

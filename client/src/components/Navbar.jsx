@@ -8,6 +8,7 @@ export const Navbar = () => {
     const auth = useContext(AuthContext);
 
     const logoutHandler = event => {
+        //preventDefault cancells link processing.
         event.preventDefault();
         auth.logout();
         history.push("/");

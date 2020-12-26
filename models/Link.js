@@ -7,6 +7,7 @@ const schema = new Schema({
     code: {type: String, required: true, unique: true},
     date: {type: Date, default: Date.now},
     clicks: {type: Number, default: 0},
+    // Makes a reference to a certain user.
     owner: [{type: Types.ObjectId, ref: "User"}]
 });
 

@@ -7,7 +7,8 @@ import "./AuthPage.css";
 
 export const AuthPage = () => {
 
-    const auth = useContext(AuthContext); // Now this variable contains all data which transfered by AuthContext.Provider
+    // Now this variable contains all data which transfered by AuthContext.Provider
+    const auth = useContext(AuthContext); 
     const message = useMessage();
     const {loading, error, request, clearError} = useHttp();
 
@@ -22,26 +23,32 @@ export const AuthPage = () => {
     }, [error, message, clearError]);
 
     useEffect(() => {
+        //updateTextFields allows make inputs in active mode.
         window.M.updateTextFields();
     }, []);
 
     const changeHandler = (event) => {
-        setForm({...form, [event.target.name]: event.target.value}); //[event.target.name] - dynamic key. The necessary value will be selected depending on the changed input value.
+         //[event.target.name] - dynamic key. The necessary value will be selected depending on the changed input value.
+        setForm({...form, [event.target.name]: event.target.value});
     }
 
     const registerHandler = async () => {
         try {
-            const data = await request("/api/auth/register", "POST", {...form} ); // *Because of ports value diffrence between back-end and front-end parts we need to add in client package.json proxy part which will tell front-end make requests by pointed port in development mode.*
+            // *Because of ports value diffrence between back-end and front-end parts we need to add in client package.json proxy part which will tell front-end make requests by pointed port in development mode.*
+            const data = await request("/api/auth/register", "POST", {...form} );
             message(data.message);
-        } catch (e) {  }    //catch here remains empty because it already processed in http hook.
+        //catch here remains empty because it already processed in http hook.
+        } catch (e) {  }   
     }
 
     const loginHandler = async () => {
         try {
-            const data = await request("/api/auth/login", "POST", {...form} ); // *Because of ports value diffrence between back-end and front-end parts we need to add in client package.json proxy part which will tell front-end make requests by pointed port in development mode.*
+            // *Because of ports value diffrence between back-end and front-end parts we need to add in client package.json proxy part which will tell front-end make requests by pointed port in development mode.*
+            const data = await request("/api/auth/login", "POST", {...form} ); 
             message(data.message);
-            auth.login(data.token, data.userId);
-        } catch (e) {  }    //catch here remains empty because it already processed in http hook.
+            auth.login(data.token, data.userId);   
+         //catch here remains empty because it already processed in http hook. 
+        } catch (e) {  }  
     }
 
     return(
@@ -57,7 +64,7 @@ export const AuthPage = () => {
                                         id="email" 
                                         type="text"
                                         name="email"
-                                        className="yellow-input"
+                                        className="auth-yellow-input"
                                         value={form.email}
                                         onChange={changeHandler} />
                                 <label htmlFor="email">Email</label>
@@ -67,7 +74,7 @@ export const AuthPage = () => {
                                         id="password" 
                                         type="password"
                                         name="password"
-                                        className="yellow-input"
+                                        className="auth-yellow-input"
                                         value={form.password}
                                         onChange={changeHandler} />
                                 <label htmlFor="password">Password</label>

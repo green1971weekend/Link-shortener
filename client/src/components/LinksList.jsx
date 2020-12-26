@@ -26,6 +26,7 @@ export const LinksList = ({links}) => {
                             <td>{link.from}</td>
                             <td>{link.to}</td>
                             <td>
+                                {/* Link component allows open the link */}
                                 <Link to={`/detail/${link._id}`}>Open</Link>
                             </td>
                         </tr>

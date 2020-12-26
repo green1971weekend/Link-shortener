@@ -1,6 +1,8 @@
 const express = require("express");
-const config = require("config");   //Contains all configuration settings in config folder.
-const mongoose = require("mongoose"); //Contains functionality for working with mongoDB.
+ //Contains all configuration settings in config folder.
+const config = require("config"); 
+//Contains functionality for working with mongoDB.
+const mongoose = require("mongoose");
 
 //The result of express configuration. Variable app contains server functionality for starting, listening etc.
 const app = express();
@@ -25,7 +27,7 @@ app.use(bodyParser.json());
 //Another method 
 // app.use(express.json({extended: true}));
 
-//Registration of diffrent routes with use() for processing requests from front-end.
+//Registration of diffrent routes with use() method for request process from front-end.
 app.use("/api/auth", require("./routes/auth.routes.js"));
 app.use("/api/link", require("./routes/link.routes.js"));
 app.use("/t", require("./routes/redirect.routes.js"))
@@ -47,7 +49,8 @@ async function start() {
 
     } catch(e) {
         console.log("Server error", e.message);
-        process.exit(1); // Terminate the process if something went wrong.
+         // Terminate the process if something went wrong.
+        process.exit(1);
     }
 }
 start();

@@ -6,25 +6,29 @@ import {LinksPage} from "./components/LinksPage";
 import {CreatePage} from "./components/CreatePage";
 import {DetailPage} from "./components/DetailPage";
 
-
+// This component defines all link sets.
 export const useRoutes = (isAuthenticated) => {
+
+    // Load all routes if the user is authenticated.
     if (isAuthenticated) {
         return (
             <Switch>
-                <Route path="/links" exact>
+                {/* exact parameter is needed for route answering, exceptionally to this link */}
+                <Route path="/links" exact> 
                     <LinksPage />
                 </Route>
                 <Route path="/create" exact>
                     <CreatePage />
                 </Route>
-                <Route path="/detail/:id" exact>
+                {/* :id - dynamic parameter */}
+                <Route path="/detail/:id">
                     <DetailPage />
                 </Route>
                 <Redirect to="/create" />
             </Switch>
         );
     }
-
+    
     return (
         <Switch>
             <Route path="/" exact>

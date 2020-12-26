@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
-
+// Middleware - intercept inbound data and checks for token validation.
 module.exports = (req, res, next) => {
     if(req.method === "OPTIONS") {
-        return next()
+        // next() continues request process.
+        return next();
     }
 
     try{
@@ -14,9 +15,10 @@ module.exports = (req, res, next) => {
             return res.status(401).json({message: "Not authorized"});
         }
 
+        // Decodes passed token.
         const decoded = jwt.verify(token, config.get("jwtSecret"));
-        req.user = decoded
-        next()
+        req.user = decoded;
+        next();
     } catch (e) {
         return res.status(401).json({message: "Not authorized"});
     }

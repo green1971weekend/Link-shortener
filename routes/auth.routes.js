@@ -23,7 +23,8 @@ router.post("/register",
  ],
  async (req, res) => {
     try {
-        const errors = validationResult(req); // validationResult validates incoming data.
+        // validationResult validates incoming data.
+        const errors = validationResult(req);
         if(!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array(),
@@ -31,9 +32,11 @@ router.post("/register",
             })
         }  
 
-        const { email, password } = req.body; // !!! The data dispatched from front-end. For the correct parsing body-parser package is needed and configured in app.js.
+         // ! The data dispatched from front-end. For the correct parsing body-parser package is needed and configured in app.js.
+        const { email, password } = req.body;
 
-        const candidate = await User.findOne({ email }); //Looking for coincidences between all existing users in mongoDB.
+        //Looking for coincidences between all existing users in mongoDB.
+        const candidate = await User.findOne({ email });
         if(candidate) {
             return res.status(400).json({message: "User with this email already exists."});
         }
@@ -41,7 +44,8 @@ router.post("/register",
         const hashedPassword = await bcrypt.hash(password, 12);
         const user = new User({email, password: hashedPassword});
 
-        await user.save(); // Save user to the mongoDB.
+        // Save user to the mongoDB.
+        await user.save();
 
         res.status(201).json({message: "New user has been created"});
 
