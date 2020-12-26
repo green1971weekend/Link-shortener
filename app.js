@@ -3,14 +3,13 @@ const express = require("express");
 const config = require("config"); 
 //Contains functionality for working with mongoDB.
 const mongoose = require("mongoose");
-
 //The result of express configuration. Variable app contains server functionality for starting, listening etc.
 const app = express();
-
 var cors = require('cors');
-
 // Body parser for the correct parsing of input data to server from front-end.
 var bodyParser = require('body-parser');
+
+const path = require("path");
 
 app.use(cors({
     origin: "*",
@@ -30,7 +29,18 @@ app.use(bodyParser.json());
 //Registration of diffrent routes with use() method for request process from front-end.
 app.use("/api/auth", require("./routes/auth.routes.js"));
 app.use("/api/link", require("./routes/link.routes.js"));
-app.use("/t", require("./routes/redirect.routes.js"))
+app.use("/t", require("./routes/redirect.routes.js"));
+
+if(process.env.NODE_ENV === "production") {
+    //express.static is a middleware which indicates to and returns a static folder build of client.
+    //__dirname is the current directory.
+    app.use("/", express.static(path.join(__dirname, "client", "build")));
+
+    //For any get request minified index.html will be returned.
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    });
+}
 
 //In the production and development modes we'll have the diffrent port values.
 const PORT = config.get("port") || 5000;
